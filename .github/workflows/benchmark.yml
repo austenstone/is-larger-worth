@@ -12,4 +12,5 @@ jobs:
   run:
     runs-on: ${{ inputs.runs-on }}
     steps:
+      - uses: actions/checkout@v3
       - run: node benchmark.js
