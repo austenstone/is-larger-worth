@@ -1,0 +1,14 @@
+name: "Larger Runners Benchmark"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  codeql:
+    name: codeql
+    strategy:
+      matrix:
+        runs-on: ['ubuntu-latest', 'larger-4', 'larger-8', 'larger-16', 'larger-32', 'larger-64']
+    uses: ./.github/workflows/benchmark.yml
+    with:
+      runs-on: ${{ matrix.runs-on }}

@@ -1,0 +1,15 @@
+name: "Benchmark"
+
+on:
+  workflow_call:
+    inputs:
+      runs-on:
+        default: "ubuntu-latest"
+        required: false
+        type: string
+
+jobs:
+  run:
+    runs-on: ${{ github.event.inputs.runs-on }}
+    steps:
+      - run: node benchmark.js
