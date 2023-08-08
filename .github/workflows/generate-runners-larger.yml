@@ -14,7 +14,7 @@ jobs:
     steps:
       - id: create
         run: |
-          ID="$(gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -f selected_repository_ids[]='${{ github.repository }}' | jq -r '.id')"
+          gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -f selected_repository_ids[]='${{ github.repository }}'
           echo "runner_group_id=$ID" >> "$GITHUB_OUTPUT"
   generate-runners:
     runs-on: ubuntu-latest
