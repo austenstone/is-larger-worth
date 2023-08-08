@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         image: [ 'ubuntu-latest' ]
-        size: ['large', 'xlarge', '2xlarge', '4xlarge', '8xlarge']
+        size: ['4-core', '8-core', '16-core', '32-core', '64-core']
         runner_group_id: ['${{ needs.create-runner-group.outputs.runner_group_id }}']
     steps:
       - run: echo ${{ needs.create-runner-group.outputs.runner_group_id }}
