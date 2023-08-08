@@ -16,6 +16,6 @@ jobs:
     strategy:
       matrix:
         runs-on: ['ubuntu-latest', 'larger-4', 'larger-8', 'larger-16', 'larger-32', 'larger-64']
-    uses: ./.github/workflows/codeql-analysis.yml
+    uses: ./.github/workflows/codeql.yml
     with:
       runs-on: ${{ matrix.runs-on }}
