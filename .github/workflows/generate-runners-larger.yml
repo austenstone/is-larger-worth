@@ -12,6 +12,7 @@ jobs:
     outputs:
       runner_group_id: ${{ steps.create.outputs.runner_group_id }}
     steps:
+      - run: echo ${{ github.event.repository.id }}
       - id: create
         run: |
           gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -f selected_repository_ids[]=${{ github.event.repository.id }}
