@@ -15,7 +15,7 @@ jobs:
       - run: gh --version
       - id: create
         run: |
-          runner_group_id="$(gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }})"
+          runner_group_id="$(gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }} | jq -r '.id')"
           echo "runner_group_id=$runner_group_id" >> "$GITHUB_OUTPUT"
   generate-runners:
     runs-on: ubuntu-latest
@@ -28,4 +28,4 @@ jobs:
         size: ['large']
         runner_group_id: ['${{ needs.create-runner-group.outputs.runner_group_id }}']
     steps:
-      - run: gh api /orgs/octodemo/actions/larger-runners -f name="${{ matrix.name }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id="${{ matrix.runner_group_id }}"
+      - run: gh api /orgs/octodemo/actions/larger-runners -f name="${{ matrix.name }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
