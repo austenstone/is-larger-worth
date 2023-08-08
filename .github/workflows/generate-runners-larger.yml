@@ -22,11 +22,9 @@ jobs:
     needs: create-runner-group
     strategy:
       matrix:
-        name: ['ubuntu-latest', 'larger-4', 'larger-8', 'larger-16', 'larger-32', 'larger-64']
-        image: ['ubuntu-latest']
-        # size: ['large', 'xlarge', '2xlarge', '4xlarge', '8xlarge']
-        size: ['large']
+        image: [ 'ubuntu-latest' ]
+        size: ['large', 'xlarge', '2xlarge', '4xlarge', '8xlarge']
         runner_group_id: ['${{ needs.create-runner-group.outputs.runner_group_id }}']
     steps:
       - run: echo ${{ needs.create-runner-group.outputs.runner_group_id }}
-      - run: gh api /orgs/octodemo/actions/larger-runners -f name="${{ matrix.name }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
+      - run: gh api /orgs/octodemo/actions/larger-runners -f name="${{ matrix.size }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
