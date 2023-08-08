@@ -28,4 +28,5 @@ jobs:
         size: ['large']
         runner_group_id: ['${{ needs.create-runner-group.outputs.runner_group_id }}']
     steps:
+      - run: echo ${{ needs.create-runner-group.outputs.runner_group_id }}
       - run: gh api /orgs/octodemo/actions/larger-runners -f name="${{ matrix.name }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
