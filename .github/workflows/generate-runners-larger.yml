@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
 
 env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.PAT }}
   
 jobs:
   create-runner-group:
     runs-on: ubuntu-latest
     steps:
-      - run: gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -f selected_repository_ids="['${{ github.repository }}}}']"
+      - run: gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -f selected_repository_ids="['${{ github.repository }}']"
   generate-runners:
     runs-on: ubuntu-latest
     strategy:
