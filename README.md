@@ -38,4 +38,4 @@ Then replace the `runs-on` label in the workflow file with the new variable we a
     runs-on: ${{ inputs.runs-on }}
 ```
 
-That's it! Now you can trigger codeql scans from the workflow [`codeql-analysis-larger.yml`] and it will simutaniously run the codeql workflow with all different larger runner types.
+That's it! Now you can trigger codeql scans from the workflow `codeql-analysis-larger.yml` and it will simutaniously run the codeql workflow with all different larger runner types.
