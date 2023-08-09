@@ -4,12 +4,13 @@ on:
   workflow_call:
     inputs:
       runs-on:
-        default: "ubuntu-latest"
+        default: 'ubuntu-latest'
         required: false
         type: string
 
 jobs:
   run:
-    runs-on: ${{ github.event.inputs.runs-on }}
+    runs-on: ${{ inputs.runs-on }}
     steps:
+      - uses: actions/checkout@v3
       - run: node benchmark.js
