@@ -1,4 +1,4 @@
-name: "Larger Runners Benchmark"
+name: "2. Larger Runners Benchmark"
 
 on:
   workflow_dispatch:

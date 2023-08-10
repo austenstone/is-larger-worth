@@ -13,4 +13,9 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - uses: actions/checkout@v3
-      - run: node benchmark.js
+      # - run: node benchmark.js
+      - run: |
+          sudo add-apt-repository ppa:colin-king/stress-ng
+          sudo apt update
+          sudo apt install stress-ng
+          stress-ng --all 16
