@@ -18,4 +18,4 @@ jobs:
           sudo add-apt-repository ppa:colin-king/stress-ng
           sudo apt update
           sudo apt install stress-ng
-          stress-ng --all 16
+      - run: stress-ng --all 16
