@@ -12,11 +12,11 @@ jobs:
   stress-ng:
     runs-on: ${{ inputs.runs-on }}
     steps:
-    - run: |
-        sudo add-apt-repository ppa:colin-king/stress-ng
-        sudo apt update
-        sudo apt install stress-ng
-    - run: stress-ng --all 16
+      - run: |
+          sudo add-apt-repository ppa:colin-king/stress-ng
+          sudo apt update
+          sudo apt install stress-ng
+      - run: stress-ng --all 16
   sysbench:
     runs-on: ${{ inputs.runs-on }}
     steps:
