@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       runs-on:
-        default: 'ubuntu-latest'
+        default: "ubuntu-latest"
         required: false
         type: string
 
@@ -12,18 +12,18 @@ jobs:
   stress-ng:
     runs-on: ${{ inputs.runs-on }}
     steps:
-    - run: |
-        sudo add-apt-repository ppa:colin-king/stress-ng
-        sudo apt update
-        sudo apt install stress-ng
-    - run: stress-ng --all 16
+      - run: |
+          sudo add-apt-repository ppa:colin-king/stress-ng
+          sudo apt update
+          sudo apt install stress-ng
+      - run: stress-ng --all 16
   sysbench:
     runs-on: ${{ inputs.runs-on }}
     steps:
-    - run: sudo apt install sysbench
-    - run: sysbench cpu --threads=2 run
+      - run: sudo apt install sysbench
+      - run: sysbench cpu --threads=2 run
   _7z:
     runs-on: ${{ inputs.runs-on }}
     steps:
-    - run: sudo apt install p7zip-full
-    - run: 7z b
+      - run: sudo apt install p7zip-full
+      - run: 7z b
