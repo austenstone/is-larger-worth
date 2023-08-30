@@ -9,12 +9,21 @@ on:
         type: string
 
 jobs:
-  run:
+  stress-ng:
     runs-on: ${{ inputs.runs-on }}
     steps:
-      - uses: actions/checkout@v3
-      - run: |
-          sudo add-apt-repository ppa:colin-king/stress-ng
-          sudo apt update
-          sudo apt install stress-ng
-      - run: stress-ng --all 16
+    - run: |
+        sudo add-apt-repository ppa:colin-king/stress-ng
+        sudo apt update
+        sudo apt install stress-ng
+    - run: stress-ng --all 16
+  sysbench:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+    - run: sudo apt install sysbench
+    - run: sysbench cpu --threads=2 run
+  _7z:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+    - run: sudo apt install p7zip-full
+    - run: 7z b
