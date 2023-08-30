@@ -1,0 +1,36 @@
+name: "1. Delete Larger Runners"
+
+on:
+  workflow_dispatch:
+
+env:
+  ORG: ${{ github.event.repository.owner.login }}
+  GITHUB_TOKEN: ${{ secrets.PAT }}
+  
+jobs:
+  get-runner-group:
+    runs-on: ubuntu-latest
+    outputs:
+      runner_group_id: ${{ steps.get.outputs.runner_group_id }}
+    env:
+      RUNNER_GROUP_NAME: 'larger-runners'
+    steps:
+      - id: get
+        run: |
+          runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups --paginate --jq '.runner_groups.[] | select(.name=="${{ env.RUNNER_GROUP_NAME }}")' | jq -r '.id')"
+          echo "::set-output name=runner_group_id::${runner_group_id}"
+  delete-runner-group:
+    runs-on: ubuntu-latest
+    needs: get-runner-group
+    steps:
+      - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/runner-groups/${{ needs.get-runner-group.outputs.runner_group_id }}
+  delete-runners:
+    runs-on: ubuntu-latest
+    needs: get-runner-group
+    strategy:
+      matrix:
+        image: [ 'ubuntu-latest' ]
+        size: ['4-core', '8-core', '16-core', '32-core', '64-core']
+        runner_group_id: ['${{ needs.get-runner-group.outputs.runner_group_id }}']
+    steps:
+      - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/larger-runners -f name="${{ matrix.size }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}

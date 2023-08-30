@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 env:
+  ORG: ${{ github.event.repository.owner.login }}
   GITHUB_TOKEN: ${{ secrets.PAT }}
   
 jobs:
@@ -12,10 +13,9 @@ jobs:
     outputs:
       runner_group_id: ${{ steps.create.outputs.runner_group_id }}
     steps:
-      - run: gh --version
       - id: create
         run: |
-          runner_group_id="$(gh api /orgs/octodemo/actions/runner-groups -f name="larger-runners" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }} | jq -r '.id')"
+          runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups -f name="larger-runners" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }} | jq -r '.id')"
           echo "runner_group_id=$runner_group_id" >> "$GITHUB_OUTPUT"
   generate-runners:
     runs-on: ubuntu-latest
@@ -26,5 +26,4 @@ jobs:
         size: ['4-core', '8-core', '16-core', '32-core', '64-core']
         runner_group_id: ['${{ needs.create-runner-group.outputs.runner_group_id }}']
     steps:
-      - run: echo ${{ needs.create-runner-group.outputs.runner_group_id }}
-      - run: gh api /orgs/octodemo/actions/larger-runners -f name="${{ matrix.size }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
+      - run: gh api /orgs/${{ env.ORG }}/actions/larger-runners -f name="${{ matrix.size }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
