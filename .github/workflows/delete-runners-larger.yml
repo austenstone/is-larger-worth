@@ -33,4 +33,4 @@ jobs:
         size: ['4-core', '8-core', '16-core', '32-core', '64-core']
         runner_group_id: ['${{ needs.get-runner-group.outputs.runner_group_id }}']
     steps:
-      - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/larger-runners -f name="${{ matrix.size }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
+      - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/larger-runners/${{ matrix.size }}
