@@ -26,11 +26,8 @@ jobs:
       - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/runner-groups/${{ needs.get-runner-group.outputs.runner_group_id }}
   delete-runners:
     runs-on: ubuntu-latest
-    needs: get-runner-group
     strategy:
       matrix:
-        image: [ 'ubuntu-latest' ]
         size: ['4-core', '8-core', '16-core', '32-core', '64-core']
-        runner_group_id: ['${{ needs.get-runner-group.outputs.runner_group_id }}']
     steps:
       - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/larger-runners/${{ matrix.size }}
