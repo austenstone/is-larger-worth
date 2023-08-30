@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  codeql:
-    name: codeql
+  benchmark:
+    name: Benchmark
     strategy:
       fail-fast: false
       matrix:
