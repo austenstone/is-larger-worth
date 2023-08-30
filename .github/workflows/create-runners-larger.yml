@@ -25,5 +25,6 @@ jobs:
         image: [ 'ubuntu-latest' ]
         size: ['4-core', '8-core', '16-core', '32-core', '64-core']
         runner_group_id: ['${{ needs.create-runner-group.outputs.runner_group_id }}']
+      fail-fast: false
     steps:
       - run: gh api /orgs/${{ env.ORG }}/actions/larger-runners -f name="${{ matrix.size }}" -f image="${{ matrix.image }}" -f size="${{ matrix.size }}" -F runner_group_id=${{ matrix.runner_group_id }}
