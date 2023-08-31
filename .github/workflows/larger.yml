@@ -5,7 +5,6 @@ on:
 
 jobs:
   benchmark:
-    name: Benchmark
     strategy:
       fail-fast: false
       matrix:
@@ -13,3 +12,21 @@ jobs:
     uses: ./.github/workflows/benchmark.yml
     with:
       runs-on: ${{ matrix.runs-on }}
+  summary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        id: my-script
+        with:
+          result-encoding: string
+          script: |
+            await core.summary
+            .addHeading('Test Results')
+            .addTable([
+              [{data: 'File', header: true}, {data: 'Result', header: true}],
+              ['foo.js', 'Pass ✅'],
+              ['bar.js', 'Fail ❌'],
+              ['test.js', 'Pass ✅']
+            ])
+            .addLink('View staging deployment!', 'https://github.com')
+            .write()
