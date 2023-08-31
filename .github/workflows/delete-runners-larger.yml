@@ -23,7 +23,7 @@ jobs:
   get-runner-ids:
     runs-on: ubuntu-latest
     outputs:
-      runner_ids: ${{ steps.get.outputs.runner_group_id }}
+      runner_ids: ${{ steps.get.outputs.runner_ids }}
     steps:
       - id: get
         run: |
@@ -35,7 +35,7 @@ jobs:
     strategy:
       matrix:
         image: [ 'ubuntu-latest' ]
-        runner_ids: ${{ fromJson(needs.get-runner-ids.outputs.runner_ids) }}
+        runner_ids: ${{ fromJSON(needs.get-runner-ids.outputs.runner_ids) }}
     steps:
       - run: gh api --method DELETE /orgs/${{ env.ORG }}/actions/larger-runners/${{ matrix.runner_ids }}
   delete-runner-group:
