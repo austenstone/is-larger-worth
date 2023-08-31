@@ -1,4 +1,4 @@
-name: "CodeQL Larger Runners"
+name: "3. CodeQL"
 
 on:
   workflow_dispatch:
