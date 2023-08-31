@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: benchmark
     steps:
-      - run: echo ${{ toJSON(needs.benchmark) }}
+      - run: echo "${{ toJSON(needs.benchmark) }}"
       - uses: actions/github-script@v6
         id: my-script
         with:
