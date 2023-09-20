@@ -16,7 +16,7 @@ jobs:
     steps:
       - id: create
         run: |
-          runner_group_id="$(gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100?visible_to_repository=${{ github.event.repository.name }}' | jq -r '.runner_groups[] | select(.name == "${{ env.RUNNER_GROUP_NAME }}") | .id')"          
+          runner_group_id="$(gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100' | jq -r '.runner_groups[] | select(.name == "${{ env.RUNNER_GROUP_NAME }}") | .id')"          
           if [ -z "$runner_group_id" ]; then
             runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups -f name="${{ env.RUNNER_GROUP_NAME }}" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }} | jq -r '.id')"
           else

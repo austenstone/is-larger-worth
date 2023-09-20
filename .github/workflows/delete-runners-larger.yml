@@ -16,7 +16,7 @@ jobs:
     steps:
       - id: get
         run: |
-          runner_group_id="$(gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100?visible_to_repository=${{ github.event.repository.name }}' | jq -r '.runner_groups[] | select(.name == "${{ env.RUNNER_GROUP_NAME }}") | .id')"
+          runner_group_id="$(gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100' | jq -r '.runner_groups[] | select(.name == "${{ env.RUNNER_GROUP_NAME }}") | .id')"
           echo "runner_group_id=${runner_group_id}" >> $GITHUB_OUTPUT
   get-runner-ids:
     runs-on: ubuntu-latest
