@@ -22,5 +22,3 @@ jobs:
     steps:
       - run: sudo apt install sysbench
       - run: sysbench cpu --threads=2 run
-  stats:
-    uses: ./.github/workflows/_evaluate-workflow-usage.yml
