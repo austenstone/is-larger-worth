@@ -34,4 +34,4 @@ jobs:
             .write()
   stats:
     needs: benchmark
-    uses: austenstone/github-toolkits/workflows/evaluate-workflow-usage.yml@patch-1
+    uses: austenstone/github-toolkits/.github/workflows/evaluate-workflow-usage.yml@patch-1
