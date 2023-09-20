@@ -18,6 +18,8 @@ jobs:
           runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups | jq -r '.runner_groups[] | select(.name == "larger-runners") | .id')"          
           if [ -z "$runner_group_id" ]; then
             runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups -f name="larger-runners" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }} | jq -r '.id')"
+          else
+            echo "runner group already exists with id $runner_group_id"
           fi
           echo "runner_group_id=$runner_group_id" >> "$GITHUB_OUTPUT"
   create-runners:
