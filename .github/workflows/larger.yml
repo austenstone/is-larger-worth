@@ -33,4 +33,5 @@ jobs:
             .addLink('View staging deployment!', 'https://github.com')
             .write()
   stats:
+    needs: benchmark
     uses: austenstone/github-toolkits/workflows/evaluate-workflow-usage.yml@patch-1
