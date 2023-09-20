@@ -45,6 +45,6 @@ jobs:
     steps:
       - run: |
           for i in {1..4}; do
-            gh api --method DELETE /orgs/${{ env.ORG }}/actions/runner-groups/${{ needs.get-runner-group.outputs.runner_group_id }}
+            gh api --method DELETE /orgs/${{ env.ORG }}/actions/runner-groups/${{ needs.get-runner-group.outputs.runner_group_id }} || true
             sleep 30
           done
