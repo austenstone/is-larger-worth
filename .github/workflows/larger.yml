@@ -5,16 +5,13 @@ on:
 
 jobs:
   benchmark:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo Hello, world!
-  # benchmark:
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       runs-on: ['ubuntu-latest', '4-core', '8-core', '16-core', '32-core', '64-core']
-  #   uses: ./.github/workflows/benchmark.yml
-  #   with:
-  #     runs-on: ${{ matrix.runs-on }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: ['ubuntu-latest', '4-core', '8-core', '16-core', '32-core', '64-core']
+    uses: ./.github/workflows/benchmark.yml
+    with:
+      runs-on: ${{ matrix.runs-on }}
   evaluate-org-workflow-usage:
+    # needs: benchmark
     uses: austenstone/github-toolkits/.github/workflows/evaluate-workflow-usage.yml@main
