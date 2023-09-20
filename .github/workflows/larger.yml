@@ -16,6 +16,5 @@ jobs:
   #   uses: ./.github/workflows/benchmark.yml
   #   with:
   #     runs-on: ${{ matrix.runs-on }}
-  stats:
-    needs: benchmark
-    uses: austenstone/github-toolkits/.github/workflows/evaluate-org-workflow-usage.yml@main
+  evaluate-org-workflow-usage:
+    uses: austenstone/github-toolkits/.github/workflows/evaluate-workflow-usage.yml@main
