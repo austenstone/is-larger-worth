@@ -30,6 +30,7 @@ jobs:
   delete-runners:
     runs-on: ubuntu-latest
     needs: get-runner-ids
+    if: ${{ needs.get-runner-ids.outputs.runner_ids != '[]' && needs.get-runner-ids.outputs.runner_ids != '' }}
     strategy:
       matrix:
         image: [ 'ubuntu-latest' ]
