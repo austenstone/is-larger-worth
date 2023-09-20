@@ -6,18 +6,17 @@ on:
 env:
   ORG: ${{ github.event.repository.owner.login }}
   GITHUB_TOKEN: ${{ secrets.PAT }}
+  RUNNER_GROUP_NAME: 'larger-runners'
   
 jobs:
   get-runner-group:
     runs-on: ubuntu-latest
     outputs:
       runner_group_id: ${{ steps.get.outputs.runner_group_id }}
-    env:
-      RUNNER_GROUP_NAME: 'larger-runners'
     steps:
       - id: get
         run: |
-          runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups --paginate --jq '.runner_groups.[] | select(.name=="${{ env.RUNNER_GROUP_NAME }}")' | jq -r '.id')"
+          runner_group_id="$(gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100?visible_to_repository=${{ github.event.repository.name }}' | jq -r '.runner_groups[] | select(.name == "${{ env.RUNNER_GROUP_NAME }}") | .id')"
           echo "runner_group_id=${runner_group_id}" >> $GITHUB_OUTPUT
   get-runner-ids:
     runs-on: ubuntu-latest
@@ -26,7 +25,7 @@ jobs:
     steps:
       - id: get
         run: |
-          runner_ids="$(gh api /orgs/octodemo/actions/larger-runners --jq '[.runners.[] | select(.name=="4-core" or .name=="8-core" or .name=="16-core" or .name=="32-core" or .name=="64-core") | .id]')"
+          runner_ids="$(gh api '/orgs/octodemo/actions/larger-runners?per_page=100' --jq '[.runners.[] | select(.name=="4-core" or .name=="8-core" or .name=="16-core" or .name=="32-core" or .name=="64-core") | .id]')"
           echo "runner_ids=${runner_ids}" >> $GITHUB_OUTPUT
   delete-runners:
     runs-on: ubuntu-latest
