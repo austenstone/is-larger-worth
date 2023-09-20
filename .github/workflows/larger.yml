@@ -16,26 +16,6 @@ jobs:
   #   uses: ./.github/workflows/benchmark.yml
   #   with:
   #     runs-on: ${{ matrix.runs-on }}
-  summary:
-    runs-on: ubuntu-latest
-    needs: benchmark
-    steps:
-      - run: echo "${{ toJSON(needs.benchmark) }}"
-      - uses: actions/github-script@v6
-        id: my-script
-        with:
-          result-encoding: string
-          script: |
-            await core.summary
-            .addHeading('Test Results')
-            .addTable([
-              [{data: 'File', header: true}, {data: 'Result', header: true}],
-              ['foo.js', 'Pass ✅'],
-              ['bar.js', 'Fail ❌'],
-              ['test.js', 'Pass ✅']
-            ])
-            .addLink('View staging deployment!', 'https://github.com')
-            .write()
   stats:
     needs: benchmark
     uses: austenstone/github-toolkits/.github/workflows/evaluate-org-workflow-usage.yml@main
