@@ -15,9 +15,6 @@ jobs:
     steps:
       - id: create
         run: |
-          gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100?visible_to_repository=${{ github.event.repository.name }}' | jq -r '.runner_groups[]'
-          exit 0
-
           runner_group_id="$(gh api '/orgs/${{ env.ORG }}/actions/runner-groups?per_page=100?visible_to_repository=${{ github.event.repository.name }}' | jq -r '.runner_groups[] | select(.name == "larger-runners") | .id')"          
           if [ -z "$runner_group_id" ]; then
             runner_group_id="$(gh api /orgs/${{ env.ORG }}/actions/runner-groups -f name="larger-runners" -f visibility="selected" -F selected_repository_ids[]=${{ github.event.repository.id }} | jq -r '.id')"
