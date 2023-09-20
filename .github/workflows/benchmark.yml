@@ -9,15 +9,16 @@ on:
         type: string
 
 jobs:
-  stress-ng:
+  geekbench:
     runs-on: ${{ inputs.runs-on }}
     steps:
       - run: wget https://cdn.geekbench.com/Geekbench-6.2.0-Linux.tar.gz
       - run: tar -xvf Geekbench-6.2.0-Linux.tar.gz
-      - run: sudo ./Geekbench-6.2.0-Linux/geekbench6
-
+      - run: |
+          res=$(sudo ./Geekbench-6.2.0-Linux/geekbench6 | grep 'view your results online:' -A 2)
+          echo "::notice:: $res"
+  sysbench:
+    runs-on: ${{ inputs.runs-on }}
+    steps:
       - run: sudo apt install sysbench
       - run: sysbench cpu --threads=2 run
-      
-      - run: sudo apt install p7zip-full
-      - run: 7z b
