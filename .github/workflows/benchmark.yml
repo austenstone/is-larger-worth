@@ -9,14 +9,14 @@ on:
         type: string
 
 jobs:
-  geekbench:
-    runs-on: ${{ inputs.runs-on }}
-    steps:
-      - run: wget https://cdn.geekbench.com/Geekbench-6.2.0-Linux.tar.gz
-      - run: tar -xvf Geekbench-6.2.0-Linux.tar.gz
-      - run: |
-          res=$(sudo ./Geekbench-6.2.0-Linux/geekbench6 | grep 'view your results online:' -A 2)
-          echo "::notice:: $res"
+  # geekbench:
+  #   runs-on: ${{ inputs.runs-on }}
+  #   steps:
+  #     - run: wget https://cdn.geekbench.com/Geekbench-6.2.0-Linux.tar.gz
+  #     - run: tar -xvf Geekbench-6.2.0-Linux.tar.gz
+  #     - run: |
+  #         res=$(sudo ./Geekbench-6.2.0-Linux/geekbench6 | grep 'view your results online:' -A 2)
+  #         echo "::notice:: $res"
   sysbench:
     runs-on: ${{ inputs.runs-on }}
     steps:
