@@ -40,6 +40,8 @@ jobs:
   delete-runner-group:
     runs-on: ubuntu-latest
     needs: [ delete-runners, get-runner-group ]
+    # Run this even if the previous job is skipped
+    if: always() && !contains(needs.*.result, 'failure')
     steps:
       - run: |
           for i in {1..4}; do
