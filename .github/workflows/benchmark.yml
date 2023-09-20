@@ -19,6 +19,11 @@ jobs:
       #     sudo apt install stress-ng
       # - run: stress-ng --all 16
 
+      - run: wget https://cdn.geekbench.com/Geekbench-6.0.0-Linux.tar.gz
+      - run: tar -xvf Geekbench-6.0.0-Linux.tar.gz
+      - run: cd Geekbench-6.0.0-Linux
+      - run: ./geekbench6
+
       - run: sudo apt install sysbench
       - run: sysbench cpu --threads=2 run
       
