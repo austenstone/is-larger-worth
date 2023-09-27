@@ -13,5 +13,8 @@ jobs:
     with:
       runs-on: ${{ matrix.runs-on }}
   evaluate-workflow-usage:
-    # needs: benchmark
-    uses: austenstone/github-toolkits/.github/workflows/evaluate-workflow-usage.yml@patch-1
+    needs: benchmark
+    runs-on: ubuntu-latest
+    # uses: austenstone/github-toolkits/.github/workflows/evaluate-workflow-usage.yml@patch-1
+    steps:
+      - run: echo "TODO - evaluate workflow usage"
