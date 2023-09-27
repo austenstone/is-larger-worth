@@ -18,7 +18,7 @@ You MUST add a new secret called `PAT` that is a GitHub Personal Access token wi
 
 The basic test is called `benchmark-matrix.yml` and it calls `benchmark.yml` for each of the different runner sizes. Once you've generated the runners from the previous step you can execute this workflow manually using workflow dispatch.
 
-<img width="725" alt="Screenshot 2023-08-09 at 12 44 02 PM" src="https://github.com/austenstone/is-larger-worth/assets/22425467/9fdbbb16-081f-49ab-8a19-264c8c719d57">
+<img width="725" alt="259485096-9fdbbb16-081f-49ab-8a19-264c8c719d57" src="https://github.com/austenstone/is-larger-worth/assets/22425467/d993e64b-5eb2-404f-9883-a5099ade27bf">
 
 ### CodeQL
 
